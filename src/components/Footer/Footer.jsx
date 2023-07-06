@@ -31,16 +31,16 @@ const Footer = () => {
               <h4 className="quick__links-title">Top Categories</h4>
               <ListGroup className='mb-3'>
                 <ListGroupItem className='ps-0 border-0 '>
-               <Link to='#'>Mobile Phones</Link>
+               <Link to='#'>Painting</Link>
                 </ListGroupItem>
                 <ListGroupItem className='ps-0 border-0 '>
-                  <Link to='#'>Modern Sofa</Link>
+                  <Link to='#'>Electrical</Link>
                 </ListGroupItem>
                 <ListGroupItem className='ps-0 border-0 '>
-                  <Link to='#'>Arm Chair</Link>
+                  <Link to='#'>Plumbing</Link>
                 </ListGroupItem>
                 <ListGroupItem className='ps-0 border-0 '>
-                  <Link to='#'>Smart Watches</Link>
+                  <Link to='#'>Cleaning</Link>
                 </ListGroupItem>
               </ListGroup>
             </div>
@@ -50,7 +50,7 @@ const Footer = () => {
               <h4 className="quick__links-title">Useful Links</h4>
               <ListGroup className='mb-3'>
                 <ListGroupItem className='ps-0 border-0'>
-                  <Link to='/shop'>Shop</Link>
+                  <Link to='/Service'>Service</Link>
                 </ListGroupItem>
                 <ListGroupItem className='ps-0 border-0'>
                   <Link to='/cart'>Cart</Link>
@@ -71,7 +71,7 @@ const Footer = () => {
               <ListGroup className='mb-3'>
                 <ListGroupItem className='ps-0 border-0 d-flex align-items-center gap-2'>
                   <span><i class="ri-map-pin-line"></i></span>
-                  <p>123 Miyagi Prefecture, Japan</p>
+                  <p>Karasuno High School Miyagi Prefecture, Japan</p>
                 </ListGroupItem>
                 <ListGroupItem className='ps-0 border-0 d-flex align-items-center gap-2'>
                 <span><i class="ri-phone-line"></i></span>

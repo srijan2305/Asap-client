@@ -9,7 +9,8 @@ import {setDoc, doc} from 'firebase/firestore';
 
 import {storage} from '../firebase.config';
 import {db} from '../firebase.config'
-import {toast} from 'react-toastify' 
+import {toast} from 'react-toastify' ;
+import { useNavigate } from 'react-router-dom';
 
 
 const Signup = () => {
@@ -18,7 +19,9 @@ const Signup = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('');
   const [file, setFile] = useState(null);
-  const [loading, setLoading]= useState(false)
+  const [loading, setLoading]= useState(false);
+
+  const navigate = useNavigate()
 
   const signup = async(e)=>{
     e.preventDefault()
@@ -43,7 +46,7 @@ const Signup = () => {
             displayName: username,
             photoURL: downloadURL
           });
-          await setDoc(doc(db,'users',user.user.uid),{
+          await setDoc(doc(db,'users',user.uid),{
             uid: user.uid,
             displayName: username,
             email,
@@ -53,7 +56,9 @@ const Signup = () => {
       })
 
     
-    console.log(user);
+    setLoading(false);
+    toast.success('Account created');
+    navigate('/login')
 
     }catch(error){
       toast.error('something went wrong')
@@ -64,7 +69,10 @@ const Signup = () => {
     <section>
       <Container>
         <Row>
-          <Col lg='6' className='m-auto text-center'> 
+          {
+            loading? 
+            <Col lg='12' className="text-center">
+              <h5 className='fw-bold'>Loading.....</h5></Col>:<Col lg='6' className='m-auto text-center'> 
             <h3 className='fw-bold mb-4'>Signup</h3>
 
             <Form className='auth__form' onSubmit={signup}>
@@ -88,7 +96,10 @@ const Signup = () => {
               <p>Already have an account? <Link to='/login'>Login</Link></p>
             </Form>
 
-          </Col>
+          
+              </Col>
+              
+          }
         </Row>
       </Container>
     </section>

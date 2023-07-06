@@ -13,6 +13,7 @@ const Cart = () => {
 
   const cartItems = useSelector(state=> state.cart.cartItems);
   const totalAmount = useSelector(state=> state.cart.totalAmount)
+  
   return (<Helmet title='Cart'>
     <CommonSection title='Shopping Cart'/>
     <section>
@@ -20,7 +21,7 @@ const Cart = () => {
         <Row>
           <Col lg='9'>
             {
-              cartItems.length===0 ? (<h2>No item added to the cart</h2>
+              cartItems.length===0 ? (<h2>No Service added to the cart</h2>
               ):(
           
             <table className='table bordered'>
@@ -51,8 +52,8 @@ const Cart = () => {
             </div>
             <p className='fs-6 mt-2'>taxes and shipping will calculate in checkout</p>
             <div>
-            <button className='buy__btn w-100 '><Link to='/checkout'>Checkout</Link></button>
-              <button className='buy__btn w-100 mt-3'><Link to='/shop'>Continue Shopping</Link></button>
+            <button className='buy__btn w-100 '><Link to='/checkout' state={{cartItems}}>Book Consultation</Link></button>
+              <button className='buy__btn w-100 mt-3'><Link to='/Service'>Continue Searching</Link></button>
              
             </div>
           </Col>

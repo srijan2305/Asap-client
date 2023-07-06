@@ -21,7 +21,7 @@ const ProductCard = ({item}) => {
       imgUrl:  item.imgUrl
     })
     );
-    toast.success('Product added Successfully')
+    toast.success('Service added Successfully')
   }
   return (
     <Col lg='3' md='4' className='mb-2'>

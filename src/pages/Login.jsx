@@ -1,36 +1,77 @@
 import React,{useState} from 'react';
 import Helmet from '../components/Helmet/Helmet';
 import { Container, Row, Col, Form,FormGroup } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import {auth} from '../firebase.config';
+import {toast} from 'react-toastify';
+import ReCAPTCHA from 'react-google-recaptcha';
+
 import '../styles/login.css';
 
 const Login = () => {
 
+
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [captchaToken, setCaptchaToken]= useState(null);
+  const navigate = useNavigate();
+
+  const handleCaptchaSuccess = (token)=>{
+    console.log("Captcha token",token);
+    setCaptchaToken(token);
+  }
+  const signIn = async (e)=>{
+    e.preventDefault()
+    setLoading(true)
+
+    try{
+      if(!captchaToken){
+        toast.error('Please complete the captcha')
+        setLoading(false);
+        return;
+      }      
+      const userCredential = await signInWithEmailAndPassword(auth, email, password)
+
+      const user= userCredential.user
+      console.log(user)
+      setLoading(false)
+      toast.success('Success')
+      navigate('/checkout')
+
+    }catch(error){
+      setLoading(false)
+      toast.error(error.message)
+    }
+  }
   return (
   <Helmet title='Login'>
     <section>
       <Container>
         <Row>
-          <Col lg='6' className='m-auto text-center'>
-            <h3 className='fw-bold mb-4'>Login</h3>
+         {
+          loading? <Col lg='12' className='text-center'><h5 className='fw-bold'>Loading.....</h5></Col>: <Col lg='6' className='m-auto text-center'>
+          <h3 className='fw-bold mb-4'>Login</h3>
 
-            <Form className='auth__form'>
-              <FormGroup className='form__group'>
-                <input type='email' placeholder='Enter your email' 
-                value={email} enChange={e=>setEmail(e.target.value)}/>
-              </FormGroup>
-              <FormGroup className='form__group'>
-                <input type='password' placeholder='Enter your password'
-                value={password} enChange={e=>setPassword(e.target.value)}/>
-              </FormGroup>
-              <button type='submit' className='buy__btn auth__btn'>Login</button>
-              <p>Forgot Password?<Link to=''>Click here</Link></p>
-              <p>Don't have an account? <Link to='/signup'>Create an account</Link></p>
-            </Form>
+          <Form className='auth__form' onSubmit={signIn}>
+            <ReCAPTCHA sitekey=' 6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
+            onChange={handleCaptchaSuccess}/>
+            <FormGroup className='form__group'>
+              <input type='email' placeholder='Enter your email' 
+              value={email} onChange={e=>setEmail(e.target.value)}/>
+            </FormGroup>
+            <FormGroup className='form__group'>
+              <input type='password' placeholder='Enter your password'
+              value={password} onChange={e=>setPassword(e.target.value)}/>
+            </FormGroup>
+            <button type='submit' className='buy__btn auth__btn' disabled={!captchaToken}>Login</button>
+            <p>Forgot Password?<Link to=''>Click here</Link></p>
+            <p>Don't have an account? <Link to='/signup'>Create an account</Link></p>
+          </Form>
 
-          </Col>
+        </Col>
+         }
         </Row>
       </Container>
     </section>

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
-import Clock from '../components/UI/Clock';
+// import Clock from '../components/UI/Clock';
 
 import {Link} from 'react-router-dom';
 import {motion} from 'framer-motion';
@@ -11,41 +11,46 @@ import {Container, Row,Col} from "reactstrap"
 import heroImg from '../assets/images/hero-img.png';
 import Services  from '../services/Services';
 import ProductsList from '../components/UI/ProductsList';
-import counterImg from '../assets/images/counter-timer-img.png'
+// import counterImg from '../assets/images/counter-timer-img.png'
 
 const Home = () => {
   const [trendingProducts, setTrendingProducts]= useState([]);
   const [bestSalesProducts,setBestSalesProducts]= useState([]);
   const [mobileProducts, setMobileProducts] = useState([])
-  const [wirelessProducts, setWirelessProducts] = useState([])
-  const [popularProducts, setPopularProducts] = useState([])
+  // const [wirelessProducts, setWirelessProducts] = useState([])
+  const [popularProducts, setPopularProducts] = useState([]);
+
+
 
   const year = new Date().getFullYear();
   useEffect(() => {
     const filteredTrendingProducts =products.filter(
-      item=>item.category ==='chair');
+      item=>item.category ==='Painting');
 
     const filteredBestSalesProducts =products.filter(
-      item=>item.category ==='sofa');
+      item=>item.category ==='Electrical');
 
     const filteredMobileProducts =products.filter(
-      item=>item.category ==='mobile');
+      item=>item.category ==='Plumbing');
 
-    const filteredWirelessProducts =products.filter(
-      item=>item.category ==='wireless');
+    // const filteredWirelessProducts =products.filter(
+    //   item=>item.category ==='wireless');
 
     const filteredPopularProducts = products.filter(
-      (item) => item.category === 'watch'
+      (item) => item.category === 'Cleaning'
     )
 
     setTrendingProducts(filteredTrendingProducts);
     setBestSalesProducts(filteredBestSalesProducts);
     setMobileProducts(filteredMobileProducts);
-    setWirelessProducts(filteredWirelessProducts);
+    // setWirelessProducts(filteredWirelessProducts);
     setPopularProducts(filteredPopularProducts)
     
     
   },[] );
+
+
+
   return (
     <Helmet title={"Home"}>
       <section className='hero__section'>
@@ -55,15 +60,18 @@ const Home = () => {
               <div className='hero__content'>
                   <p className='hero__subtitle'>Trending Product in {year}</p>
                   <h2>Make Your Interior More Minimalistic & Modern</h2>
-                  <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aperiam eius, praesentium aut quisquam quae quaerat minus iste in nam, inventore, odio voluptatibus cupiditate? Sunt quasi maiores nesciunt, possimus vel quidem!</p>
-                  <motion.button whileTap={{scale: 1.2}} className='buy__btn'><Link to='/shop'>SHOP NOW</Link></motion.button>
+                  <iframe width="100%" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=100&amp;hl=en&amp;q=work%20district%20jayanagar%204th%20block+(ASAP%20Services)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.maps.ie/distance-area-calculator.html">measure acres/hectares on map</a></iframe>
+                  <p>
+                  
+                  </p>
+                  <motion.button whileTap={{scale: 1.2}} className='buy__btn'><Link to='/Service'>SHOP NOW</Link></motion.button>
               </div>
             </Col>
-            <Col lg="6" md="6">
+            {/* <Col lg="6" md="6">
               <div className='hero__img'>
                 <img src={heroImg} alt="hero" />
               </div>
-            </Col>
+            </Col> */}
           </Row>
         </Container>
       </section>
@@ -73,9 +81,11 @@ const Home = () => {
       <Container>
         <Row>
           <Col lg='12' className='text-center'>
-            <h2 className='section__title'>Trending Products</h2>
+            <h2 className='section__title p-3 '>Painting</h2>
           </Col>
+          <Row lg='12' className='d-flex justify-content-center p-4'>
           <ProductsList data={trendingProducts}/>
+          </Row>
         </Row>
       </Container>
      </section>
@@ -83,13 +93,15 @@ const Home = () => {
       <Container>
         <Row>
           <Col lg='12' className='text-center'>
-            <h2 className='section__title'>Best Sales</h2>
+            <h2 className='section__title py-4'>Electrical</h2>
             </Col> 
+            <Row lg='12' className='d-flex justify-content-center p-4'>
             <ProductsList data={bestSalesProducts}/>
+            </Row>
         </Row>
       </Container>
      </section>
-     <section className='timer__count'>
+     {/* <section className='timer__count'>
       <Container>
         <Row>
           <Col lg='6' md='12' className='count__down-col'>
@@ -106,15 +118,17 @@ const Home = () => {
         </Row>
       </Container>
 
-     </section>
+     </section> */}
      <section className='new__arrivals'>
       <Container>
         <Row>
           <Col lg='12' className='text-center mb-5'>
-            <h2 className='section__title'>New Arrivals</h2>
+            <h2 className='section__title'>Plumbing</h2>
           </Col>
+          <Row lg='12' className='d-flex justify-content-center p-4'>
           <ProductsList data={mobileProducts}/>
-          <ProductsList data={wirelessProducts}/>
+          {/* <ProductsList data={wirelessProducts}/> */}
+          </Row>
         </Row>
       </Container>
      </section>
@@ -122,10 +136,12 @@ const Home = () => {
       <Container>
         <Row>
           <Col lg='12' className='text-center mb-5 '> 
-          <h2 className='section__title'>Popular Categories</h2>  
+          <h2 className='section__title'>Cleaning</h2>  
           </Col>
+          <Row lg='12' className='d-flex justify-content-center p-4'>
           <ProductsList  data={popularProducts}/>
           <div style={{ marginBottom: '100px' }}></div>
+          </Row>
         </Row>
       </Container>
      </sectiion>
